@@ -1,34 +1,29 @@
 package com.projeto.userdepet.entities;
 
 import javax.persistence.*;
-import java.io.Serializable;
+//import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "tb_user")
-public class User implements Serializable {
+public class User {
 
-    private static final long serialVersionUID = 1L;
+    //private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
     private  String email;
 
     @ManyToOne
-    @JoinColumn(name = "department_user")
+    @JoinColumn(name = "department_id")
     private Department department;
 
     //constructor
     public User() {
     }
 
-    public User(Long id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
 
     //Getter and Setter
     public Long getId() {

@@ -1,19 +1,18 @@
 package com.projeto.userdepet.entities;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
+//import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "tb_department")
-public class Department implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Department  {
+    //private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String  name;
 
     //Construct
