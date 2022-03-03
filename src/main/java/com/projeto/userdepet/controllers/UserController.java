@@ -15,11 +15,11 @@ import java.util.List;
 @RequestMapping(value = "/user")
 public class UserController {
 
-    @Autowired
+    @Autowired//injeção de dependência
     private UserRepository repository;
 
     @GetMapping
-    public List<User> findAll(){//buscar todos os usuários
+    public List<User> findAll(){
         List<User> result = repository.findAll();
         return result;
     }
@@ -31,12 +31,12 @@ public class UserController {
     }
 
     @GetMapping(value = "/page")
-    public Page<User> findAll(Pageable pageable){//buscar todos os usuários
+    public Page<User> findAll(Pageable pageable){
         Page<User> result = repository.findAll(pageable);
         return result;
     }
 
-    @GetMapping(value = "/search-salary")
+    @GetMapping(value = "/search-salary/page")
     public Page<User> searchBySalary(@RequestParam(defaultValue = "0") Double minSalary,
                                    @RequestParam(defaultValue = "10000000000") Double maxSalary,
                                    Pageable pageable){
@@ -44,24 +44,48 @@ public class UserController {
        return result;
     }
 
-    @GetMapping(value = "/search-name")
+    @GetMapping(value = "/search-salary")
+    public List<User> searchBySalary(@RequestParam(defaultValue = "0") Double minSalary,
+                                     @RequestParam(defaultValue = "10000000000") Double maxSalary){
+        List<User> result = repository.findBySalaryBetween(minSalary, maxSalary);
+        return result;
+    }
+
+    @GetMapping(value = "/search-name/page")
     public Page<User> searchByName(@RequestParam(defaultValue = "") String name, Pageable pageable){
         Page<User> result = repository.findByNameContainingIgnoreCase(name, pageable);
         return result;
     }
 
-    @GetMapping(value = "/search-email")
+    @GetMapping(value = "/search-name")
+    public List<User> searchByName(@RequestParam(defaultValue = "") String name){
+        List<User> result = repository.findByNameContainingIgnoreCase(name);
+        return result;
+    }
+
+    @GetMapping(value = "/search-email/page")
     public Page<User> searchByEmail(@RequestParam(defaultValue = "") String email, Pageable pageable){
         Page<User> result = repository.searchEmail(email, pageable);
         return result;
     }
 
-    @GetMapping(value = "/search-department")
+    @GetMapping(value = "/search-email")
+    public List<User> searchByEmail(@RequestParam(defaultValue = "") String email){
+        List<User> result = repository.searchEmail(email);
+        return result;
+    }
+
+    @GetMapping(value = "/search-department/page")
     public Page<User> searchByDepartment(@RequestParam(defaultValue = "") String name, Pageable pageable){
         Page<User> result = repository.searchDepartment(name, pageable);
         return result;
     }
 
+    @GetMapping(value = "/search-department")
+    public List<User> searchByDepartment(@RequestParam(defaultValue = "") String name){
+        List<User> result = repository.searchDepartment(name);
+        return result;
+    }
 
     @PostMapping
     public User insert(@RequestBody User user){
