@@ -1,5 +1,6 @@
 package com.projeto.userdepet.controllers;
 
+import com.projeto.userdepet.entities.Department;
 import com.projeto.userdepet.entities.User;
 import com.projeto.userdepet.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,19 @@ public class UserController {
         Page<User> result = repository.findByNameContainingIgnoreCase(name, pageable);
         return result;
     }
+
+    @GetMapping(value = "/search-email")
+    public Page<User> searchByEmail(@RequestParam(defaultValue = "") String email, Pageable pageable){
+        Page<User> result = repository.searchEmail(email, pageable);
+        return result;
+    }
+
+    @GetMapping(value = "/search-department")
+    public Page<User> searchByDepartment(@RequestParam(defaultValue = "") String name, Pageable pageable){
+        Page<User> result = repository.searchDepartment(name, pageable);
+        return result;
+    }
+
 
     @PostMapping
     public User insert(@RequestBody User user){
