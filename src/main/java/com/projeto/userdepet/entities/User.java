@@ -14,7 +14,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private  String email;
+    private String email;
+    private Double salary;
 
     @ManyToOne
     @JoinColumn(name = "department_id")
@@ -24,6 +25,13 @@ public class User {
     public User() {
     }
 
+    public User(Long id, String name, String email, Double salary, Department department) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.salary = salary;
+        this.department = department;
+    }
 
     //Getter and Setter
     public Long getId() {
@@ -58,6 +66,14 @@ public class User {
         this.department = department;
     }
 
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+
     //equals and hashcode
     @Override
     public boolean equals(Object o) {
@@ -73,13 +89,14 @@ public class User {
     }
 
 
-    //toString
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", salary=" + salary +
+                ", department=" + department +
                 '}';
     }
 }
